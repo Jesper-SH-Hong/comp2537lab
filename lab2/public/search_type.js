@@ -54,19 +54,6 @@ function processSinglePokemonResp_color(data) {
     }
 }
 
-function processSinglePokemonResp_id(data) {
-
-    if (data.id == inputGlobal) {
-
-        $("main").append(`<div class="image_container"> 
-            <a href="/profile/${data.id}">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png">
-            </a>
-            </div>`)
-        $(".image_container").css("background-color", '#eceda1')
-    }
-}
-
 
 
 function ajax_call_template(process_fn) {
@@ -80,9 +67,9 @@ function ajax_call_template(process_fn) {
     }
 }
 
-//only used for color criteria
 function ajax_call_template_color(process_fn) {
-    for (i = 1; i <= 100; i++) {
+    for (i = 1; i <= 100; i++) { // iterate over 100 pokemons
+        //나쁜 방법이지만 ajax로 100번 리퀘스트 보내보잨ㅋㅋ
         $.ajax({
             type: "GET",
             url: `https://pokeapi.co/api/v2/pokemon-species/${i}`,
@@ -100,9 +87,7 @@ function ajax_calling(criteria) {
         case "color":
             ajax_call_template_color(processSinglePokemonResp_color)
             break;
-        case "id":
-            ajax_call_template(processSinglePokemonResp_id)
-            break;
+
     }
 }
 
@@ -137,18 +122,6 @@ function display(criteria, input_value) {
 
 }
 
-function display_in_id() {
-    $("main").empty();
-    id_ = $("#poke_id").val()
-    inputGlobal = id_
-
-    if (isNaN(inputGlobal)) {
-        alert("please enter number for id")
-    } else {
-        ajax_calling("id");
-    }
-}
-
 
 
 
@@ -170,15 +143,6 @@ function setup() {
         display("color", color_);
     })
 
-    $('#search_btn').click(display_in_id)
-    //     ( () => {
-    //     id_ = $("#poke_id").val()
-    //     if (typeof(id_) === number){
-    //     display("id", id_);
-    //     } else {
-    //         alert("please enter number for id")
-    //     }
-    // })
     //region
 
     //id

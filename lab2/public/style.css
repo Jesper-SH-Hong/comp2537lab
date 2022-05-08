@@ -38,6 +38,10 @@ nav a {
 }
 /* #link4 {} */
 
+header a{
+    text-decoration: none;
+}
+
 main {
     display: flex;
     flex-direction: row;

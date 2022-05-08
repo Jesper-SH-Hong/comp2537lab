@@ -41,23 +41,26 @@ app.get('/profile/:id', function (req, res) {
             // console.log(data)
             data = JSON.parse(data)
             //data.stats = array
-            hp_ = data.stats.filter((obj_) => {
-                return obj_.stat.name == "hp"
-            }).map((k) => {
-                return k.base_stat
-            });
+            hp_ = data.stats.filter(   (obj_) => { return obj_.stat.name == "hp" }    ).map(  (k) => { return k.base_stat } );
+            attack_  = data.stats.filter(   (obj_) => { return obj_.stat.name == "attack" }    ).map(  (k) => { return k.base_stat } );
+            defense_  = data.stats.filter(   (obj_) => { return obj_.stat.name == "defense" }    ).map(  (k) => { return k.base_stat } );
+            speed_  = data.stats.filter(   (obj_) => { return obj_.stat.name == "speed" }    ).map(  (k) => { return k.base_stat } );
+            types_array = []
+            for (i=0; i < data.types.length; i++) {
+                types_array.push(data.types[i].type.name)
+            }
+            types_array_ = types_array
             console.log(hp_)
+            
             res.render("profile.ejs", { //sent whole/complete html file. sendfile이랑 같아 ㅋㅋ 근데 html 뿐 아니라 variable을 그 html에 패스해줄 수 있다는 게 차이점. ejs 확장자여야 함. app.set(라인3 import도 해줘야)
                 "id": req.params.id,
                 "name": data.name,
                 "img_path": data.sprites.other["official-artwork"].front_default,
                 "hp": hp_,
-                "height": 1,
-                "weight": 1,
-                "ID": 1,
-                "types": 1,
-                "Abilities": 1
-
+                "attack": attack_,
+                "defense": defense_,
+                "speed": speed_,
+                "types_array_": types_array
                 // res.json(
                 //     {
                 //     "k1": "val1",
