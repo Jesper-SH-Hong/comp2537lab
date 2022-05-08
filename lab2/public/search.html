@@ -10,13 +10,25 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="search.js"></script>
     <link href="style_search.css" rel="stylesheet" type="text/css" />
+
+    <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
 </head>
 
 <body>
 
     <div id="outer">
         <header>
-            <a href="index.html"><h1>Jesper's Pokedex</h1></a>
+            <a href="index.html">
+                <h1>Jesper's Pokedex</h1>
+            </a>
         </header>
         <nav>
             <span>
@@ -92,17 +104,21 @@
         <div id="id">
             <!-- <form method="post"> -->
 
-                <label> ID</label>
-                <!-- form이었으면  이 ID 텍스트 필드의 값을 http request의 body로 -->
-                <input id="poke_id" type="text" name="poke_id" placeholder="Enter Pokemon ID">
-                <input id="search_btn" type="submit" value="search">
+            <label> ID</label>
+            <!-- form이었으면  이 ID 텍스트 필드의 값을 http request의 body로 -->
+            <input id="poke_id" type="text" name="poke_id" placeholder="Enter Pokemon ID">
+            <input id="search_btn" type="submit" value="search">
             <!-- </form> -->
         </div>
     </div>
 
-    <main>
-        main placeholder    
+    <main style="width: 80%; float:left;">
+        main placeholder
     </main>
+    <div id="history_tab" style="width: 18%; float:left;";>
+        <b>Search History <button id="delete_history_btn">Delete</button></b>
+        <p id="history_"></p>
+    </div>
 </body>
 
 </html>

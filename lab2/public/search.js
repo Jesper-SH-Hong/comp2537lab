@@ -41,6 +41,19 @@ function processSinglePokemonResp_type(data) {
 
 }
 
+function processSinglePokemonResp_id(data) {
+
+    if (data.id == inputGlobal) {
+
+        $("main").append(`<div class="image_container"> 
+            <a href="/profile/${data.id}">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png">
+            </a>
+            </div>`)
+        $(".image_container").css("background-color", '#eceda1')
+    }
+}
+
 function processSinglePokemonResp_color(data) {
 
     if (data.color.name == inputGlobal) {
@@ -54,18 +67,7 @@ function processSinglePokemonResp_color(data) {
     }
 }
 
-function processSinglePokemonResp_id(data) {
 
-    if (data.id == inputGlobal) {
-
-        $("main").append(`<div class="image_container"> 
-            <a href="/profile/${data.id}">
-            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png">
-            </a>
-            </div>`)
-        $(".image_container").css("background-color", '#eceda1')
-    }
-}
 
 
 
@@ -97,12 +99,13 @@ function ajax_calling(criteria) {
         case "type":
             ajax_call_template(processSinglePokemonResp_type)
             break;
-        case "color":
-            ajax_call_template_color(processSinglePokemonResp_color)
-            break;
         case "id":
             ajax_call_template(processSinglePokemonResp_id)
             break;
+        case "color":
+            ajax_call_template_color(processSinglePokemonResp_color)
+            break;
+
     }
 }
 
@@ -112,28 +115,9 @@ function display(criteria, input_value) {
 
 
     inputGlobal = input_value
+    add_history(criteria, inputGlobal);
+
     ajax_calling(criteria)
-
-    // case "color":
-    //     inputGlobal = input_value
-    //     ajax_calling(color_)
-    //     break;
-    // case "region":
-    //     inputGlobal = region_
-    // case "id":
-    //     inputGlobal = id_
-
-    // }
-    // console.log(inputGlobal)
-    // for (i = 1; i <= 100; i++) { // iterate over 100 pokemons
-    //     //나쁜 방법이지만 ajax로 100번 리퀘스트 보내보잨ㅋㅋ
-    //     $.ajax({
-    //         type: "GET",
-    //         url: `https://pokeapi.co/api/v2/pokemon/${i}`,
-    //         success: processSinglePokemonResp
-
-    //     })
-    // }
 
 }
 
@@ -147,20 +131,80 @@ function display_in_id() {
     } else {
         ajax_calling("id");
     }
+
+    add_history("id", inputGlobal)
 }
 
 
+function add_history(criteria, input_value) {
+    i = 0;
+    remove_btn = `<input class="remove_btn" type="submit" value="remove"> </input>`
 
+    $("#history_").append("<div class='history_link'>" + criteria + " : " + input_value + remove_btn + "</div>")
+
+    // $("#history_").append(`<div class='history_link'> 
+    // <span id= 'history_criteria'> ${criteria} </span> : ${input_value} ${remove_btn}
+    // </div>`)
+    i++;
+}
+// <div class='history_link'> 
+//     <span id= 'history_criteria'> ${criteria} </span> : ${input_value} ${remove_btn}
+// </div>
+
+function show_prev(criteria, input_value) {
+    $("main").empty();
+
+    inputGlobal = input_value
+    for (i = 1; i <= 100; i++) {
+        $.ajax({
+            type: "GET",
+            url: `https://pokeapi.co/api/v2/pokemon/${i}`,
+            success: processSinglePokemonResp_type
+        })
+    }
+}
+
+
+function display_prev_result() {
+    history_row = $(this).text()
+    criteriaArray = history_row.split(":")
+    criteria = criteriaArray[0].trim()
+    input_value = criteriaArray[1].trim()
+
+    // show_prev(criteria, input_value)
+
+    if (criteria == "id") {
+        $("main").empty();
+        inputGlobal = input_value
+        add_history("id", inputGlobal)
+        ajax_calling("id");
+    }
+
+     else{
+
+    display(criteria, input_value)
+    }
+}
+
+function remove_() {
+    $(this).parent().hide()
+}
+
+function remove_history() {
+    $('.history_link').hide()
+}
 
 
 function setup() {
     type_ = $("#poke_type option:selected").val()
-    display("type", type_); //default showing
+    display("type", type_);
+    //default showing
 
     $("#poke_type").change(() => {
         type_ = $("#poke_type option:selected").val()
         console.log(type_)
         display("type", type_);
+        // add_history("type", type_);
     })
 
     color_ = $("#poke_color option:selected").val()
@@ -168,20 +212,14 @@ function setup() {
         color_ = $("#poke_color option:selected").val()
         // console.log(type_)
         display("color", color_);
+
     })
 
     $('#search_btn').click(display_in_id)
-    //     ( () => {
-    //     id_ = $("#poke_id").val()
-    //     if (typeof(id_) === number){
-    //     display("id", id_);
-    //     } else {
-    //         alert("please enter number for id")
-    //     }
-    // })
-    //region
+    $('body').on("click", '.remove_btn', remove_)
+    $('body').on("click", '#delete_history_btn', remove_history)
+    $('body').on("click", '.history_link', display_prev_result)
 
-    //id
 }
 
 $(document).ready(setup);
