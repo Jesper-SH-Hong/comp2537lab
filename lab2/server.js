@@ -2,6 +2,8 @@ const express = require('express');
 const app = express()
 const https = require('https')
 app.set('view engine', 'ejs');
+const cors = require('cors');
+app.use(cors());
 
 
 app.listen(5000, function (err) {

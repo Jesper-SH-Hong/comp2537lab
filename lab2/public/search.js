@@ -18,6 +18,18 @@ const colors = {
     normal: '#F5F5F5'
 }
 
+const pokenumber1 = [...Array(898).keys()]  // 0,1,,,,897
+for (i=0; i < pokenumber1.length; i++) {
+    pokenumber1[i] += 1 
+}
+const pokenumber2 = [...Array(228).keys()]  // 0,1,,,,227
+for (i=0; i < pokenumber2.length; i++) {
+    pokenumber2[i] += 10001 
+}
+
+const all_poke = pokenumber1.concat(pokenumber2)
+// console.log(all_poke)
+
 function processSinglePokemonResp_type(data) {
 
     for (i = 0; i < data.types.length; i++) {
@@ -72,11 +84,11 @@ function processSinglePokemonResp_color(data) {
 
 
 function ajax_call_template(process_fn) {
-    for (i = 1; i <= 100; i++) { // iterate over 100 pokemons
+    for (i = 0; i < all_poke.length; i++) { // iterate over 100 pokemons
         //나쁜 방법이지만 ajax로 100번 리퀘스트 보내보잨ㅋㅋ
         $.ajax({
             type: "GET",
-            url: `https://pokeapi.co/api/v2/pokemon/${i}`,
+            url: `https://pokeapi.co/api/v2/pokemon/${all_poke[i]}`,
             success: process_fn
         })
     }
@@ -84,10 +96,10 @@ function ajax_call_template(process_fn) {
 
 //only used for color criteria
 function ajax_call_template_color(process_fn) {
-    for (i = 1; i <= 100; i++) {
+    for (i = 0; i < all_poke.length; i++) {
         $.ajax({
             type: "GET",
-            url: `https://pokeapi.co/api/v2/pokemon-species/${i}`,
+            url: `https://pokeapi.co/api/v2/pokemon-species/${all_poke[i]}`,
             success: process_fn
         })
     }
@@ -155,10 +167,10 @@ function show_prev(criteria, input_value) {
     $("main").empty();
 
     inputGlobal = input_value
-    for (i = 1; i <= 100; i++) {
+    for (i = 0; i < all_poke.length; i++) {
         $.ajax({
             type: "GET",
-            url: `https://pokeapi.co/api/v2/pokemon/${i}`,
+            url: `https://pokeapi.co/api/v2/pokemon/${all_poke[i]}`,
             success: processSinglePokemonResp_type
         })
     }
