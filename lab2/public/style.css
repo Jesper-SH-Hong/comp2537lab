@@ -38,8 +38,9 @@ nav a {
 }
 /* #link4 {} */
 
-header a{
+header a {
     text-decoration: none;
+    color: black;
 }
 
 main {

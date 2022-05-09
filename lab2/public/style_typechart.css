@@ -36,10 +36,14 @@ nav a {
     justify-content: space-between;
 
 }
-/* #link4 {} */
-header a{
+
+header a {
     text-decoration: none;
+    color: black;
 }
+
+/* #link4 {} */
+
 
 img {
    display: block;

@@ -99,27 +99,6 @@ function display(criteria, input_value) {
     inputGlobal = input_value
     ajax_calling(criteria)
 
-    // case "color":
-    //     inputGlobal = input_value
-    //     ajax_calling(color_)
-    //     break;
-    // case "region":
-    //     inputGlobal = region_
-    // case "id":
-    //     inputGlobal = id_
-
-    // }
-    // console.log(inputGlobal)
-    // for (i = 1; i <= 100; i++) { // iterate over 100 pokemons
-    //     //나쁜 방법이지만 ajax로 100번 리퀘스트 보내보잨ㅋㅋ
-    //     $.ajax({
-    //         type: "GET",
-    //         url: `https://pokeapi.co/api/v2/pokemon/${i}`,
-    //         success: processSinglePokemonResp
-
-    //     })
-    // }
-
 }
 
 
@@ -143,9 +122,6 @@ function setup() {
         display("color", color_);
     })
 
-    //region
-
-    //id
 }
 
 $(document).ready(setup);
