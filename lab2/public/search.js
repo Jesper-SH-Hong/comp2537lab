@@ -149,7 +149,7 @@ function display_in_id() {
 
 
 function add_history(criteria, input_value) {
-    i = 0;
+
     remove_btn = `<input class="remove_btn" type="submit" value="remove"> </input>`
 
     $("#history_").append("<div class='history_link'>" + criteria + " : " + input_value + remove_btn + "</div>")
@@ -157,24 +157,9 @@ function add_history(criteria, input_value) {
     // $("#history_").append(`<div class='history_link'> 
     // <span id= 'history_criteria'> ${criteria} </span> : ${input_value} ${remove_btn}
     // </div>`)
-    i++;
-}
-// <div class='history_link'> 
-//     <span id= 'history_criteria'> ${criteria} </span> : ${input_value} ${remove_btn}
-// </div>
 
-function show_prev(criteria, input_value) {
-    $("main").empty();
-
-    inputGlobal = input_value
-    for (i = 0; i < all_poke.length; i++) {
-        $.ajax({
-            type: "GET",
-            url: `https://pokeapi.co/api/v2/pokemon/${all_poke[i]}`,
-            success: processSinglePokemonResp_type
-        })
-    }
 }
+
 
 
 function display_prev_result() {
