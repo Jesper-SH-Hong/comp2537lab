@@ -56,13 +56,14 @@ function processSinglePokemonResp_type(data) {
 function processSinglePokemonResp_id(data) {
 
     if (data.id == inputGlobal) {
+        poke_type = data.types[0].type.name
 
         $("main").append(`<div class="image_container"> 
             <a href="/profile/${data.id}">
             <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${data.id}.png">
             </a>
             </div>`)
-        $(".image_container").css("background-color", '#eceda1')
+        $(".image_container").css("background-color", colors[poke_type])
     }
 }
 
