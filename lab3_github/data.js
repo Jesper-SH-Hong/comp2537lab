@@ -1,7 +1,3 @@
-const {
-    model
-} = require("mongoose")
-
 collection = {
     "pokemons": [{
             "id": 1,
@@ -12,6 +8,9 @@ collection = {
                         "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
                     }
                 }
+            },
+            "color": {
+                "name": "green",
             },
             "stats": [{
                     "base_stat": 45,
@@ -68,6 +67,9 @@ collection = {
                         "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png"
                     }
                 }
+            },
+            "color": {
+                "name": "red",
             },
             "stats": [{
                     "base_stat": 39,
@@ -130,6 +132,10 @@ collection = {
                     }
                 }
             },
+            "color": {
+                "name": "pink",
+            },
+
             "stats": [{
                     "base_stat": 140,
                     "effort": 3,

@@ -113,6 +113,12 @@ app.get('/search/db', function (req, res) {
     (poke) => poke.id == req.query["q"]))
 })
 
+
+
+
+
+
+
 app.get('/profile/:id', function (req, res) {
     const url = `https://pokeapi.co/api/v2/pokemon/${req.params.id}`
 

@@ -101,7 +101,7 @@ function ajax_call_template_color(process_fn) {
     for (i = 0; i < all_poke.length; i++) {
         $.ajax({
             type: "GET",
-            url: `https://pokeapi.co/api/v2/pokemon-species/${all_poke[i]}`,
+            url: `http://localhost:5000/search/db/?q=${all_poke[i]}`,
             success: process_fn
         })
     }
