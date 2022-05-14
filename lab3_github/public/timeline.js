@@ -10,10 +10,10 @@ function loadTimelineToMainDiv() {
             for (i = 0; i < data.length; i++) {
 
                 $("main").append(`
-                <div>
-            <p> Text: ${data[i].text} </p>
-            <p> Time: ${data[i].time} </p>
-            <p> Hits: ${data[i].hits} </p>
+                <div class="log">
+            <p> <b>Text:</b> ${data[i].text} </p>
+            <p> <b>Time:</b> ${data[i].time} </p>
+            <p> <b>Hits:</b> ${data[i].hits} </p>
             <button class="likeButtons" id="${data[i]["_id"]}"> Like! </button>
             <button class="deleteButtons" id="${data[i]["_id"]}"> Delete! </button>
             </div>`)

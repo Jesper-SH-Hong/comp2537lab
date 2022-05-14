@@ -58,8 +58,9 @@ main {
     justify-content: center;
 }
 
-.img-container {
-    width: 33%;
+.image_container {
+    /* width: 33%; */
+    border-radius: 150px;
 }
 
 .images_col {
