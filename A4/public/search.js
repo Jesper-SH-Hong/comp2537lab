@@ -18,27 +18,27 @@ const colors = {
     normal: '#F5F5F5'
 }
 
-const pokenumber1 = [...Array(898).keys()]  // 0,1,,,,897
-for (i=0; i < pokenumber1.length; i++) {
-    pokenumber1[i] += 1 
-}
-const pokenumber2 = [...Array(228).keys()]  // 0,1,,,,227
-for (i=0; i < pokenumber2.length; i++) {
-    pokenumber2[i] += 10001 
-}
+// const pokenumber1 = [...Array(898).keys()] // 0,1,,,,897
+// for (i = 0; i < pokenumber1.length; i++) {
+//     pokenumber1[i] += 1
+// }
+// const pokenumber2 = [...Array(228).keys()] // 0,1,,,,227
+// for (i = 0; i < pokenumber2.length; i++) {
+//     pokenumber2[i] += 10001
+// }
 
-const all_poke = pokenumber1.concat(pokenumber2)
+// const all_poke = pokenumber1.concat(pokenumber2)
 // console.log(all_poke)
+
+const all_poke = [...Array(300).keys()]
+for (i = 0; i < all_poke.length; i++) {
+    all_poke[i] += 1
+}
 
 function processSinglePokemonResp_type(data) {
 
     for (i = 0; i < data.types.length; i++) {
         if (data.types[i].type.name == inputGlobal) {
-            // to_add += `<div class="image_container"> 
-            // <a href="/profile/${data.id}">
-            // <img src="${data.sprites.other["official-artwork"].front_default}">
-            // </a>
-            // </div>`
 
             $("main").append(`<div class="image_container"> 
             <a href="/profile/${data.id}">
@@ -90,6 +90,7 @@ function ajax_call_template(process_fn) {
         $.ajax({
             type: "GET",
             url: `https://pokeapi.co/api/v2/pokemon/${all_poke[i]}`,
+            // url: `http://localhost:5000/search/db/?q=${all_poke[i]}`,
             success: process_fn
         })
     }
@@ -153,7 +154,7 @@ function add_history(criteria, input_value) {
 
     remove_btn = `<input class="remove_btn" type="submit" value="remove"> </input>`
 
-    $("#history_").append("<div class='history_link'>" + criteria + " : " + input_value + "</div>" + remove_btn )
+    $("#history_").append("<div class='history_link'>" + criteria + " : " + input_value + "</div>" + remove_btn)
 
     // $("#history_").append(`<div class='history_link'> 
     // <span id= 'history_criteria'> ${criteria} </span> : ${input_value} ${remove_btn}
@@ -176,11 +177,9 @@ function display_prev_result() {
         inputGlobal = input_value
         add_history("id", inputGlobal)
         ajax_calling("id");
-    }
+    } else {
 
-     else{
-
-    display(criteria, input_value)
+        display(criteria, input_value)
     }
 }
 
@@ -191,6 +190,25 @@ function remove_() {
 function remove_history() {
     $('.history_link').hide()
 }
+
+var now = new Date(Date.now());
+var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+
+function insertEventTimeline(input) {
+    $.ajax({
+        type: "put",
+        url: "http://localhost:5000/timeline/insert",
+        data: {
+            "text": `client has searched for Pokemon of type ${input}`,
+            "hits": 1,
+            "time": now
+        },
+        success: (res) => {console.log(res)}
+    })
+}
+
+
+
 
 
 function setup() {
@@ -203,6 +221,7 @@ function setup() {
         console.log(type_)
         display("type", type_);
         // add_history("type", type_);
+        insertEventTimeline(type_)
     })
 
     color_ = $("#poke_color option:selected").val()
@@ -210,6 +229,8 @@ function setup() {
         color_ = $("#poke_color option:selected").val()
         // console.log(type_)
         display("color", color_);
+        insertEventTimeline(color_)
+
 
     })
 
@@ -217,6 +238,8 @@ function setup() {
     $('body').on("click", '.remove_btn', remove_)
     $('body').on("click", '#delete_history_btn', remove_history)
     $('body').on("click", '.history_link', display_prev_result)
+
+
 
 }
 

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="search.js"></script>
+    <link href="style_search.css" rel="stylesheet" type="text/css" />
+
+    <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+</head>
+
+<body>
+
+    <div id="outer">
+        <header>
+            <a href="index.html">
+                <h1>Jesper's Pokedex</h1>
+            </a>
+        </header>
+        <nav>
+            <span>
+                <a href="type.html">Type</a>
+                <a href="typechart.html">Type Chart</a>
+            </span>
+            <span>
+                <a href="search.html" id="link4">Search</a>
+                <a href="account.html">Account</a>
+            </span>
+        </nav>
+
+    </div>
+
+    <div id="search_zone">
+        <!-- <div id="region">
+            Region:
+            <select name="poke_region" id="poke_region">
+                <option value="Kanto">Kanto (1-151)</option>
+                <option value="Johto">Johto (152-251)</option>
+                <option value="Hoenn">Hoenn (252-386)</option>
+                <option value="Sinnoh">Sinnoh (387-494)</option>
+                <option value="Unova">Unova (495-649)</option>
+                <option value="Kalos">Kalos (650-721)</option>
+                <option value="Alola">Alola (722-809)</option>
+                <option value="Galar">Galar (810-898)</option>
+            </select>
+        </div> -->
+
+        <div id="type">
+            Type:
+            <select name="poke_type" id="poke_type">
+                <option value="normal">normal</option>
+                <option value="fighting">fighting</option>
+                <option value="flying">flying</option>
+                <option value="poison">poison</option>
+                <option value="ground">ground</option>
+                <option value="rock">rock</option>
+                <option value="bug">bug</option>
+                <option value="ghost">ghost</option>
+                <option value="steel">steel</option>
+                <option value="fire">fire</option>
+                <option value="water">water</option>
+                <option value="grass">grass</option>
+                <option value="electric">electric</option>
+                <option value="psychic">psychic</option>
+                <option value="ice">ice</option>
+                <option value="dragon">dragon</option>
+                <option value="dark">dark</option>
+                <option value="fairy">fairy</option>
+                <option value="unknown">unknown</option>
+                <option value="shadow">shadow</option>
+
+            </select>
+        </div>
+
+        <div id="color">
+            Color:
+            <select name="poke_color" id="poke_color">
+                <option value="black">black</option>
+                <option value="blue">blue</option>
+                <option value="brown">brown</option>
+                <option value="gray">gray</option>
+                <option value="green">green</option>
+                <option value="pink">pink</option>
+                <option value="purple">purple</option>
+                <option value="red">red</option>
+                <option value="white">white</option>
+                <option value="yellow">yellow</option>
+            </select>
+        </div>
+
+        <div id="id">
+            <!-- <form method="post"> -->
+
+            <label> ID</label>
+            <!-- form이었으면  이 ID 텍스트 필드의 값을 http request의 body로 -->
+            <input id="poke_id" type="text" name="poke_id" placeholder="Enter Pokemon ID">
+            <input id="search_btn" type="submit" value="search">
+            <!-- </form> -->
+        </div>
+    </div>
+
+    <main>
+        main placeholder
+    </main>
+    <!-- <div id="history_tab" style="width: 18%; float:left;";>
+        <b>Search History <button id="delete_history_btn">Delete</button></b>
+        <p id="history_"></p>
+    </div> -->
+
+    <footer>
+        <center>
+            <h4>
+                © 2022 BCIT COMP2537 POKEMON Assignment by Jesper
+            </h4>
+        </center>
+    </footer>
+</body>
+
+</html>
