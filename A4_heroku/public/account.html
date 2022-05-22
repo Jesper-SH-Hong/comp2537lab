@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="./account.js"></script>
+    <link href="style_search.css" rel="stylesheet" type="text/css" />
+
+    <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+</head>
+
+<body>
+
+    <div id="outer">
+        <header>
+            <a href="index.html">
+                <h1>Jesper's Pokedex</h1>
+            </a>
+        </header>
+        <nav>
+            <span>
+                <a href="type.html">Type</a>
+                <a href="typechart.html">Type Chart</a>
+            </span>
+            <span>
+                <a href="search.html" id="link4">Search</a>
+                <a href="account">Account</a>
+            </span>
+        </nav>
+
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <center>
+        Hello user <span id="userinfo">please sign in</span>
+    </center>
+
+    <div id="menu" style="height: 40px;"></div>
+    <center>
+        <br>
+        <button type="submit" style="width: 150px;" onclick="location.href='cart.html'">Cart</button>
+        <br>
+        <br>
+        <button id="timeline" type="submit" style="width: 150px;"
+            onclick="location.href='timeline.html'">Timeline</button>
+        <br>
+
+        <br>
+        <form action="/logout" method="POST">
+            <button type="submit" style="width: 150px;"">Sign Out</button>
+    </form>
+    <!-- <div id=timeline style=" width:80%; float: left;"> placeholder</div> -->
+    </center>
+    <footer>
+        <center>
+            <h4>
+                © 2022 BCIT COMP2537 POKEMON Assignment by Jesper
+            </h4>
+        </center>
+    </footer>
+</body>
+
+</html>
