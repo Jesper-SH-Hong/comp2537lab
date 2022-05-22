@@ -8,7 +8,7 @@
     <title>Document</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="search.js"></script>
+    <script src="./account.js"></script>
     <link href="style_search.css" rel="stylesheet" type="text/css" />
 
     <script>
@@ -37,17 +37,36 @@
             </span>
             <span>
                 <a href="search.html" id="link4">Search</a>
-                <a href="account.html">Account</a>
+                <a href="account">Account</a>
             </span>
         </nav>
 
     </div>
 
-    <div id="dummy" style="height: 40px;"></div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <center>
+        Hello user <span id="userinfo">please sign in</span>
+    </center>
 
-    <button id="logout" style="width: 10%; float: right;">logout</button>
-    <div id=timeline style="width:80%; float: left;"> placeholder</div>
-  
+    <div id="menu" style="height: 40px;"></div>
+    <center>
+        <br>
+        <button type="submit" style="width: 150px;" onclick="location.href='cart.html'">Cart</button>
+        <br>
+        <br>
+        <button id="timeline" type="submit" style="width: 150px;"
+            onclick="location.href='timeline.html'">Timeline</button>
+        <br>
+
+        <br>
+        <form action="/logout" method="POST">
+            <button type="submit" style="width: 150px;"">Sign Out</button>
+    </form>
+    <!-- <div id=timeline style=" width:80%; float: left;"> placeholder</div> -->
+    </center>
     <footer>
         <center>
             <h4>
