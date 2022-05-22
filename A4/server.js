@@ -35,36 +35,6 @@ app.use(session({
 
 
 
-
-
-let user = {      //회원 정보
-  user_id: "hong",
-  user_pwd: "1111"
-};
-
-
-app.get('/login', (req, res) => {     
-  if(req.session.logined) {
-    res.render('logout', { id: req.session.user_id });
-  } else {
-    res.render('login.ejs');
-  }
-});
-
-app.post('/login', (req, res) => {     
-  if(req.body.id == user.user_id && req.body.pwd == user.user_pwd){
-    req.session.logined = true;
-    req.session.user_id = req.body.id;
-    res.render('logout', { id: req.session.user_id });
-    } else {
-      res.send(`
-        <h1>Who are you?</h1>
-        <a href="/">Back </a>
-      `);
-  }
-});
-
-
 var conn_session = mongoose.createConnection('mongodb://localhost:27017/sessionDB');
 
 const userSchema = mongoose.Schema({
@@ -78,6 +48,72 @@ const userSchema = mongoose.Schema({
 
 const User = conn_session.model('users', userSchema)  //첫 변수는 콜렉션명.. 항상 복수형
 
+
+var conn_timeline = mongoose.createConnection('mongodb://localhost:27017/timelineDB');
+
+//stored in 'timelineDB' database
+  const timelineModel = conn_timeline.model('timelines', new mongoose.Schema( //첫 변수는 콜렉션명
+    {
+    text: String,
+    hits: Number,
+    time: String,  //몽고 db에 date, 등 다양한 포맷 있을거니 확인하셈.
+}));
+
+
+// let user = {      //회원 정보
+//   user_id: "hong",
+//   user_pwd: "1111"
+// };
+
+
+app.get('/account', (req, res) => {     
+  if(req.session.logined) {
+    // res.render('logout', { id: req.session.user_id });
+    res.sendFile(__dirname + "/public/account.html")
+  } else {
+    // res.render('login.ejs');
+    res.sendFile(__dirname + "/public/login.html")
+  }
+});
+
+app.post('/login', (req, res) => {     
+  User.findOne({user_id:req.body.id}, function(err, userinfo) {
+
+  if (userinfo != null){
+    if(req.body.id == userinfo.user_id && req.body.pwd == userinfo.password){
+  // }})
+  // if(req.body.id == user.user_id && req.body.pwd == user.user_pwd){
+    req.session.logined = true;
+    req.session.user_id = req.body.id;
+    console.log(req.session.user_id)
+    // res.render('logout', { id: req.session.user_id });
+    res.sendFile(__dirname + "/public/search.html")
+
+    }
+    else {
+      console.log("wrong password")
+      res.send(`
+      <center>
+      <h1>Who are you?</h1>
+      <h2>Please register or enter correct user info</h2>
+      <a href="/account">Back </a>
+      </center>
+    `)
+    }
+  } else {
+      
+    console.log(1)
+      res.send(`
+        <h1>Who are you?</h1>
+        <a href="/account">Back </a>
+      `)}
+})
+})
+
+app.get('/getuserinfo', (req, res) => {     
+    res.send(req.session.user_id)
+})
+    
 
 function isDuplicate(req, res, uid, upwd) {
   let parseUrl = url.parse(req.url);
@@ -93,7 +129,7 @@ function isDuplicate(req, res, uid, upwd) {
                   <h1>User id duplicate</h1>
               `);
           } else {
-              User.create({ "user_id": uid, "password": upwd, "cart":[{pokeID: 1, qty: 1, price: 1}] }, (err) => {
+              User.create({ "user_id": uid, "password": upwd, "cart":[{pokeID: null, qty: null, price: null}] }, (err) => {
                   if(err) return res.json(err);
                   console.log('Success');
                   res.redirect('/');
@@ -136,6 +172,7 @@ function isDuplicate(req, res, uid, upwd) {
 
 app.post('/logout', (req, res) => {   
   req.session.destroy();
+  timelineModel.deleteMany({}, (req, res) => console.log("deleted!"));
   res.redirect('/');
 });
 
@@ -149,15 +186,142 @@ app.post('/register', (req, res) => {
   isDuplicate(req, res, uid, upwd);
 });
 
-var conn_timeline = mongoose.createConnection('mongodb://localhost:27017/timelineDB');
 
-//stored in 'timelineDB' database
-  const timelineModel = conn_timeline.model('timelines', new mongoose.Schema( //첫 변수는 콜렉션명
-    {
-    text: String,
-    hits: Number,
-    time: String,  //몽고 db에 date, 등 다양한 포맷 있을거니 확인하셈.
+// app.post('/cart/getItems', function(req, res) {
+//   uid = req.session.user_id
+//   // console.log(uid)
+//   // res.send(uid)
+//   pokemon_id = req.body.poke
+//   // console.log(pokemon_id)
+
+//   // var userData_ = null   //혹시 필요하면 여기 말고 글로벌로 밖에 정의해서 써야 할듯.
+//   User.find({user_id: uid}, function(err, data){
+//     // userData_ = data
+
+//     //data[0] = chosen 1 user
+//     cart_obj = data[0].cart
+//     cart_length = cart_obj.length
+//     console.log(data)
+//     // console.log("data[0].cart:" + cart_obj)
+//     // console.log(cart_length)
+//     for (i =0; i < cart_length; i++){
+//       if(cart_obj[i].pokeID == pokemon_id)
+//       // User.find( {"user_id": uid, pokeID: pokemon_id} , function(err, res){
+//       //   console.log(res)
+//       //   console.log(res[0].cart)})
+
+//       // data[0].cart.
+//       User.updateOne(
+//         {"user_id": uid},
+//         {$inc: {"cart.qty: 1}}
+//         )
+
+//       // User.updateOne( {"user_id": uid, pokeID: pokemon_id} , {$inc: {'cart[0].$.qty': 1}})
+
+
+//       //   inf = User.updateOne( {"user_id": uid, "cart.pokeID": pokemon_id}  , {$inc: {'cart.qty': 1}})
+//       // console.log(inf)
+//       console.log("found it!")
+//       //!!! inc qty.
+//       //만약 없을 시 create
+    
+//     }})})
+      
+
+
+
+
+
+    // }
+
+
+
+    // if(uid != null && userData_ != null){
+    //   console.log("hi1")
+    //   for(i = 0; i < userData_.cart.length(); i++){
+        
+    //     if (userData_.cart[i].pokemon_id == pokemon_id)
+    //     console.log("hi")
+    //   }
+    // }
+//   })
+// })
+
+
+
+
+  // if(uid != null){User.find({user_id: uid}, function(err, data){
+  //   data.find({}, {cart: 1}, function(err, existing){
+  //   console.log(existing)
+  //     res.send(existing)})
+  //   })}})
+    // console.log(data[0].cart[0].pokeID)  //cart[i]
+    // res.send(data)})}})
+  
+//   )
+//   // User.find({user_id:uid}, function (err, data) {
+//   //   res.send(data);
+//   })
+// })
+
+// res.send(pokemon_id)})
+
+
+const cartModel = conn_session.model('carts', new mongoose.Schema( //첫 변수는 콜렉션명
+  {
+    'user_id': String,
+    'pokeID': Number,
+    'qty': Number,
+    'price': Number
 }));
+
+
+app.post('/cart/insert', function(req, res) {
+  console.log(req.body)
+  cartModel.create({
+    'user_id': req.session.user_id,
+    'pokeID': req.body.poke,
+    'qty': 1,
+    'price': req.body.poke
+  }, function(err, data){  
+    console.log("cart Data"+ data)
+
+  res.send("cart insertion done")
+  })
+})
+
+app.get('/cart/getcart', function(req, res) {
+  cartModel.find({user_id: req.session.user_id}, function(err, data){
+      if (err){
+        console.log("Error " + err);
+      }else{
+        console.log("Data "+ data); 
+      }
+      res.send(data);  
+  });
+})
+
+
+app.get('/cart/increaseQtys/:id', function(req, res) {  //URL 쓰니 get 고. express에 .update 없다.
+  // console.log(req.body)  - query param 쓸거니까 무쓸모
+  cartModel.updateOne({  //id 쓰니까 하나만 업뎃하자
+      '_id': req.params.id,
+    }, {    //update는 json 오브젝트 하나 더 필요. 그 오브젝트 속은 {기준: 액션}
+      $inc: {'qty': 1}
+     },   
+    function(err, data){
+      if (err){
+        console.log("Error " + err);
+      }else{
+        console.log("Data "+ data); 
+      }
+      res.send("Update request was successful!"); 
+  });
+})
+
+
+
+
 
 
 
@@ -260,12 +424,12 @@ app.get('/profile/:id', function (req, res) {
     //client(browser) talks to this server(server.js).
     // and then this https module talks to another server(pokemon API)
     //https: node.js code.. not browser.. can't make ajax rq from this code. VS you can make ajax rq only from browsers
-        
+
      https.get(url, function (https_res) { //2번쨰 인자. fn callback: executed when I recieved response from this server.
         //https_res라 한 이유는 라인 23의 res와 구별하고자)
         data = '';
         https_res.on("data", function (chunk) {
-            console.log(chunk);
+            // console.log(chunk);
             // console.log(JSON.parse(chunk)); 이게 뻑나는 이유는 pokeAPI가 한번에 json object를 한번에 안 쏘고 chunk 단위로 끊어 쏘나 봄.. 클라보고 collect them together 하라고
             data += chunk
         })
@@ -283,7 +447,7 @@ app.get('/profile/:id', function (req, res) {
                 types_array.push(data.types[i].type.name)
             }
             types_array_ = types_array
-            console.log(hp_)
+            // console.log(hp_)
             
             res.render("profile.ejs", { //sent whole/complete html file. sendfile이랑 같아 ㅋㅋ 근데 html 뿐 아니라 variable을 그 html에 패스해줄 수 있다는 게 차이점. ejs 확장자여야 함. app.set(라인3 import도 해줘야)
                 "id": req.params.id,
@@ -298,3 +462,4 @@ app.get('/profile/:id', function (req, res) {
         })
     })
 })
+
