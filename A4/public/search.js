@@ -199,7 +199,7 @@ function insertEventTimeline(input) {
         type: "put",
         url: "http://localhost:5000/timeline/insert",
         data: {
-            "text": `client has searched for Pokemon of type ${input}`,
+            "text": `You have searched for Pokemon based on category: ${input}`,
             "hits": 1,
             "time": now
         },
