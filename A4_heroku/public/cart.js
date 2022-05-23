@@ -1,5 +1,6 @@
 var totalItems = 1
 var totalAmt = 0
+var taxInc = 0
 
 function loadTimelineToMainDiv() {
     $.ajax({
@@ -31,7 +32,7 @@ function loadTimelineToMainDiv() {
                 totalItems++
                 subtotal = data[i].qty * data[i].price
                 totalAmt += subtotal
-
+                taxInc = 1.12 * totalAmt
             }
 
             result += "</table>"
@@ -57,7 +58,9 @@ function getTotalPrice() {
     console.log(subtotal)
     console.log(totalAmt)
     $("#total").html(`<center>
-    You are purchasing ${subtotal} pokemons. <br> Total purchase amount: $${totalAmt}
+    Total purchase amount: $${totalAmt}
+    <br>
+    Total Amt(incl. Tax): ${taxInc} 
     <br>
     Thanks for visiting us!
     <br>
