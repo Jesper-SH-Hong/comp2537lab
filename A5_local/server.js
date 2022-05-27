@@ -28,15 +28,14 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({
-    mongoUrl: "mongodb://localhost/sessionDB",
+    mongoUrl: "mongodb+srv://comp2537:comp2537@cluster0.sgygh.mongodb.net/?retryWrites=true&w=majority",
     collection: "sessions"
   })
 }));
 
 
 
-var conn_session = mongoose.createConnection('mongodb://localhost:27017/sessionDB');
-
+var conn_session = mongoose.createConnection("mongodb+srv://comp2537:comp2537@cluster0.sgygh.mongodb.net/?retryWrites=true&w=majority")
 const userSchema = mongoose.Schema({
   user_id: String,
   password: String,
@@ -51,7 +50,7 @@ const userSchema = mongoose.Schema({
 const User = conn_session.model('users', userSchema) //첫 변수는 콜렉션명.. 항상 복수형
 
 
-var conn_timeline = mongoose.createConnection('mongodb://localhost:27017/timelineDB');
+var conn_timeline = mongoose.createConnection('mongodb+srv://atlashong:comp2537@cluster0.58za4.mongodb.net/?retryWrites=true&w=majority')
 
 //stored in 'timelineDB' database
 const timelineModel = conn_timeline.model('timelines', new mongoose.Schema( //첫 변수는 콜렉션명

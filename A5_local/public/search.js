@@ -197,7 +197,7 @@ var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds()
 function insertEventTimeline(input) {
     $.ajax({
         type: "put",
-        url: "http://localhost:5000/timeline/insert",
+        url: "https://dry-plateau-70570.herokuapp.com/timeline/insert",
         data: {
             "text": `You have searched for Pokemon based on category: ${input}`,
             "hits": 1,

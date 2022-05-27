@@ -18,7 +18,7 @@ else{
 async function displayUserInfo() {
     await $.ajax({
         type: "get",
-        url: "http://localhost:5000/getuserinfo",
+        url: "https://dry-plateau-70570.herokuapp.com/getuserinfo",
         success: showInDiv
     })
 }

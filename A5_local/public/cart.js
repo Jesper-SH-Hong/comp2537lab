@@ -44,7 +44,7 @@ function loadTimelineToMainDiv() {
 function increaseQtys() {
     x = this.id
     $.ajax({
-        url: `http://localhost:5000/cart/increaseQtys/${x}`,
+        url: `https://dry-plateau-70570.herokuapp.com/cart/increaseQtys/${x}`,
         type: "get",
         success: (res) => {
             console.log(x)

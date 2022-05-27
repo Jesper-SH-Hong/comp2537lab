@@ -131,7 +131,7 @@ function timelineAjax(event) {
     if (event == "win") {
         $.ajax({
             type: "put",
-            url: "http://localhost:5000/timeline/insert",
+            url: "https://dry-plateau-70570.herokuapp.com/timeline/insert",
             data: {
                 "text": `You have Won PokeGame!!`,
                 "hits": 1,
@@ -144,7 +144,7 @@ function timelineAjax(event) {
     } else {
         $.ajax({
             type: "put",
-            url: "http://localhost:5000/timeline/insert",
+            url: "https://dry-plateau-70570.herokuapp.com/timeline/insert",
             data: {
                 "text": `You Lost Won PokeGame.......`,
                 "hits": 1,
