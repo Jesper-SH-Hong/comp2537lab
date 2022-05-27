@@ -1,5 +1,7 @@
 function showInDiv(data) {
-console.log(data)
+console.log(data.user_id)
+
+x = data.user_id
 
 
 if (data.role == "admin") {
@@ -9,7 +11,7 @@ if (data.role == "admin") {
 else{
 
     data += `<br> Long time no see!`
-    $("#userinfo").html(`<b>${data.user_id}</b>`)
+    $("#userinfo").html(`<b>${x}</b>`)
 }
 }
 
