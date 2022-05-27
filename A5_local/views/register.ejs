@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        Register
+    </title>
+</head>
+
+<body>
+
+    <center>
+        <br><br><br><br><br><br>
+        <h1>Register</h1>
+        <form action="/register" method="POST">
+            <input id="user_id" name="user_id" type="text" placeholder="ID">
+            <br>
+            <br>
+            <input id="password" name="password" type="password" placeholder="Password">
+            <br>
+            <br>
+            Role:
+            <select name="role" id="role">
+                <!-- <option value="_">Select Role</option> -->
+                <option value="admin">admin</option>
+                <option value="user">user</option>
+            </select>
+            <br>
+            <br>
+            <input <button type="submit" value="Register"></button>
+        </form>
+    </center>
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        x = document.getElementById("poke_id").innerHTML;
+        // console.log(x)
+
+        function process() {
+            $.ajax({
+                type: "POST",
+                url: "/register",
+                data: {
+                    poke: x
+                },
+                success: () => console.log('success')
+            })
+        }
+
+        function setup() {
+            $('role').change(process)
+        }
+        $(document).ready(setup)
+    </script> -->
+
+</body>
+
+</html>
