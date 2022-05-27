@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+
+<body>
+    <h1>
+        Hi there.
+        This pokemon is: <span style="color: blue;"> <%= name %></span>
+
+    </h1>
+
+    <img src="<%= img_path %>" style="float: left;">
+    <div id="spec" style="float: left;">
+        <table>
+
+            <tr>
+                <td>Type:</td>
+                <td><%= types_array_ %></td>
+            </tr>
+            <tr>
+                <td>HP:</td>
+                <td><%= hp %></td>
+            </tr>
+            <tr>
+                <td>Attack:</td>
+                <td><%= attack %></td>
+            </tr>
+            <tr>
+                <td>Defence:</td>
+                <td><%= defense %></td>
+            </tr>
+            <tr>
+                <td>Speed:</td>
+                <td><%= speed %></td>
+            </tr>
+            <tr>
+                <td><b>Price:</b></td>
+                <td><b><%= id %></b></td>
+            </tr>
+        </table>
+
+
+
+        <!-- <form action="/cart/getItems" method="get"> -->
+        Pokemon Id: <span name="poke_id" id="poke_id"><%= id %></span>
+
+        <br>
+        <br>
+
+        <button type="submit">Add to cart</button>
+        <!-- </form> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            x = document.getElementById("poke_id").innerHTML;
+            // console.log(x)
+
+            function process() {
+                $.ajax({
+                    type: "POST",
+                    url: "/cart/insert",
+                    data: {
+                        poke: x
+                    },
+                    success: () => console.log('success')
+                })
+            }
+
+            function setup() {
+                $('button').click(process)
+            }
+            $(document).ready(setup)
+        </script>
+
+
+
+    </div>
+</body>
+
+</html>
