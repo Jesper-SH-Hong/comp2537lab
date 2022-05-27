@@ -120,7 +120,7 @@ app.get('/getuserinfo', (req, res) => {
   }, function (err, userinfo) {
     console.log(userinfo)
     if (userinfo.role != "admin") {
-      res.send(req.session.user_id)  
+      res.send(userinfo)  
       console.log("not admin")
       
     }
