@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="./cart.js"></script>
+    <link href="cart.css" rel="stylesheet" type="text/css" />
+
+    <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+</head>
+
+<body>
+
+    <div id="outer">
+        <header>
+            <a href="index.html">
+                <h1>Jesper's Pokedex</h1>
+            </a>
+        </header>
+        <nav>
+            <span>
+                <a href="game.html">Game</a>
+                <a href="typechart.html">Type Chart</a>
+            </span>
+            <span>
+                <a href="search.html" id="link4">Search</a>
+                <a href="account">Account</a>
+            </span>
+        </nav>
+
+    </div>
+
+    <main></main>
+
+    <div>
+        <br>
+        <br>
+        <center>
+            <button id="checkout"> Check out  </button>
+        </center>
+
+        <br>
+        <br>
+        <div id="total"> Total Amount </div>
+    </div>
+
+    <footer>
+        <center>
+            <h4>
+                © 2022 BCIT COMP2537 POKEMON Assignment by Jesper
+            </h4>
+        </center>
+    </footer>
+</body>
+
+</html>
