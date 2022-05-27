@@ -131,6 +131,7 @@ app.get('/getuserinfo', (req, res) => {
   })
 })
 
+
 // app.get('/getAdminInfo', (req, res) => {
 //   res.sendFile(__dirname + "/public/admin_account.html")
 // })
@@ -383,9 +384,9 @@ app.get('/timeline/increaseHits/:id', function (req, res) { //URL 쓰니 get 고
     });
 })
 
-app.listen(5000, function (err) {
+app.listen(process.env.PORT || 5000, function (err) {    
   if (err)
-    console.log(err);
+      console.log(err);
 })
 
 // app.get('/', function (req, res) {

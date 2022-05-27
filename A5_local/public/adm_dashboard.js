@@ -33,7 +33,7 @@ function showInDiv(data) {
 function displayUserInfo() {
     $.ajax({
         type: "get",
-        url: "http://localhost:5000/adminGetAllUsers",
+        url: "https://floating-badlands-56464.herokuapp.com/adminGetAllUsers",
         success: showInDiv
     })
 }
@@ -49,7 +49,7 @@ function deleteThisUser() {
         console.log(222)
         $.ajax({
             type: "get",
-            url: `http://localhost:5000/deleteThisUser/${x}`,
+            url: `https://floating-badlands-56464.herokuapp.com/deleteThisUser/${x}`,
             success: () => {
                 alert("User has been deleted")
             }

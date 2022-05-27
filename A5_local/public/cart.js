@@ -4,7 +4,7 @@ var totalAmt = 0
 function loadTimelineToMainDiv() {
     $.ajax({
         type: "get",
-        url: "http://localhost:5000/cart/getcart",
+        url: "https://floating-badlands-56464.herokuapp.com/cart/getcart",
         success: (data) => {
             // console.log(typeof (data))
             // console.log(data.length)
@@ -44,7 +44,7 @@ function loadTimelineToMainDiv() {
 function increaseQtys() {
     x = this.id
     $.ajax({
-        url: `https://dry-plateau-70570.herokuapp.com/cart/increaseQtys/${x}`,
+        url: `https://floating-badlands-56464.herokuapp.com/cart/increaseQtys/${x}`,
         type: "get",
         success: (res) => {
             console.log(x)

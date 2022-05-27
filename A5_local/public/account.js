@@ -1,4 +1,5 @@
 function showInDiv(data) {
+console.log(data)
 console.log(data.user_id)
 
 x = data.user_id
@@ -6,7 +7,7 @@ x = data.user_id
 
 if (data.role == "admin") {
     $('#manage_user').show()
-    $("#userinfo").html(`<b>${data.user_id}</b>`)
+    $("#userinfo").html(`<b>${x}</b>`)
 }
 else{
 
@@ -18,7 +19,7 @@ else{
 async function displayUserInfo() {
     await $.ajax({
         type: "get",
-        url: "https://dry-plateau-70570.herokuapp.com/getuserinfo",
+        url: "https://floating-badlands-56464.herokuapp.com/getuserinfo",
         success: showInDiv
     })
 }

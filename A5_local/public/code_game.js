@@ -131,7 +131,7 @@ function timelineAjax(event) {
     if (event == "win") {
         $.ajax({
             type: "put",
-            url: "https://dry-plateau-70570.herokuapp.com/timeline/insert",
+            url: "https://floating-badlands-56464.herokuapp.com/timeline/insert",
             data: {
                 "text": `You have Won PokeGame!!`,
                 "hits": 1,
@@ -144,7 +144,7 @@ function timelineAjax(event) {
     } else {
         $.ajax({
             type: "put",
-            url: "https://dry-plateau-70570.herokuapp.com/timeline/insert",
+            url: "https://floating-badlands-56464.herokuapp.com/timeline/insert",
             data: {
                 "text": `You Lost Won PokeGame.......`,
                 "hits": 1,
@@ -174,9 +174,10 @@ function startTimer(timeLimit) {
             break;
     }
 
-    // timerInterval = 
+
     
     timePassed = 0
+    timerInterval = 
     setInterval(() => {
         timePassed = timePassed += 1;
         timeLeft = time_limit_ - timePassed;
@@ -184,8 +185,10 @@ function startTimer(timeLimit) {
         if (timeLeft >= 0) {
             $("#clock").html(`<span id="clock" style="width: 200px; height: 200px; font-size: 30px;">         ${formatTime(timeLeft)}        </span>     `)
         } else {
-            timelineAjax("lose")
-            $("#game_grid").html("GAME OVER. REFRESH PAGE")
+            if(timeLeft = -1){
+                timelineAjax("lose")
+                $("#game_grid").html("GAME OVER. REFRESH PAGE")}
+                clearInterval(timerInterval)
         }
     }, 1000)
 }
@@ -259,6 +262,7 @@ function setup() {
                 console.log("tot" + matchTotal)
                 if (matchCount == matchTotal) {
                     timelineAjax("win")
+                    clearInterval(timerInterval)
                     console.log("match all done") // winning log
                 }
 

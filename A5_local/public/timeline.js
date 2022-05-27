@@ -1,7 +1,7 @@
 function loadTimelineToMainDiv() {
     $.ajax({
         type: "get",
-        url: "https://dry-plateau-70570.herokuapp.com/timeline/getAllEvents",
+        url: "https://floating-badlands-56464.herokuapp.com/timeline/getAllEvents",
         success: (data) => {
             console.log(typeof(data))
             console.log(data.length)
@@ -25,7 +25,7 @@ function loadTimelineToMainDiv() {
 function increaseHits() {
     x = this.id
     $.ajax({
-        url: `https://dry-plateau-70570.herokuapp.com/timeline/increaseHits/${x}`,
+        url: `https://floating-badlands-56464.herokuapp.com/timeline/increaseHits/${x}`,
         type: "get",
         success: (res) => {console.log(x)}
     })
