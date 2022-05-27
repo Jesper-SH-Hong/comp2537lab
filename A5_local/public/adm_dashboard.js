@@ -67,6 +67,12 @@ function setup() {
 
     $("body").on("click", ".deleteUser", deleteThisUser)
 
+    $('#addUser').hide()
+
+    $('#showAddUserButton').click(() => {
+        $('#addUser').show()
+    })
+
 
 
 }
