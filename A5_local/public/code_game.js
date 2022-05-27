@@ -1,9 +1,19 @@
-firstCard = undefined
-secondCard = undefined
+var firstCard = undefined
+var secondCard = undefined
 
-firstCardHasBeenFlipped = false
+var firstCardHasBeenFlipped = false
 
+var matchCount = 0
+var matchTotal = 0
 
+function generateCardWitPoke(x) {
+    $("#game_grid").append(
+        `<div class="card">
+    <img class ="front_face" src="./${x}.png" alt="">
+    <img class ="back_face" src="./cover.png"  alt="">
+    </div>`
+    );
+}
 
 
 function populateCards() {
@@ -12,17 +22,75 @@ function populateCards() {
 
     difficultyValue = $(this).val();
     numOfCards = Number(difficultyValue);
+    // console.log("th" + numOfCards)
 
-    for (i = 0; i < numOfCards; i++) {
+    switch (numOfCards) {
+        case 4:
+            for (i = 0; i < numOfCards; i += 2) {
 
-        randNum = Math.floor(Math.random() * 3) + 7;
-        $("#game_grid").append(
-            `<div class="card">
-        <img class ="front_face" src="./${randNum}.png" alt="">
-        <img class ="back_face" src="./cover.png"  alt="">
-    </div>`
-        );
+                generateCardWitPoke(7)
+            }
+
+            for (i = 1; i < numOfCards; i += 2) {
+
+                generateCardWitPoke(8)
+            }
+            break;
+
+        case 8:
+            for (i = 0; i < 4; i++) {
+
+                generateCardWitPoke(9)
+            }
+
+            for (i = 0; i < 2; i++) {
+
+                generateCardWitPoke(8)
+            }
+
+            for (i = 2; i < numOfCards; i += 3) {
+
+                generateCardWitPoke(7)
+            }
+            break;
+
+        case 16:
+            for (i = 0; i < 2; i++) {
+                generateCardWitPoke(9)
+            }
+
+            for (i = 0; i < 2; i++) {
+                generateCardWitPoke(8)
+            }
+
+            for (i = 0; i < 2; i++) {
+                generateCardWitPoke(7)
+            }
+            for (i = 0; i < 2; i++) {
+                generateCardWitPoke(8)
+            }
+            for (i = 0; i < 4; i++) {
+                generateCardWitPoke(9)
+            }
+            for (i = 0; i < 2; i++) {
+                generateCardWitPoke(7)
+            }
+            for (i = 0; i < 2; i++) {
+                generateCardWitPoke(8)
+            }
+            break;
     }
+
+    // for (i = 0; i < numOfCards; i++) {
+
+    //     randNum = Math.floor(Math.random() * 3) + 7;
+    //     $("#game_grid").append(
+    //         `<div class="card">
+    //     <img class ="front_face" src="./${randNum}.png" alt="">
+    //     <img class ="back_face" src="./cover.png"  alt="">
+    // </div>`
+    //     );
+    // }
 
     // $("#clock").html(
     //     `<span id="clock" style="width: 200px; height: 200px; font-size: 30px;">         ${formatTime(timeLeft)}        </span>     `
@@ -56,29 +124,67 @@ function formatTime(sec) {
     return `${minutes}:${seconds}`;
 }
 
+var now = new Date(Date.now());
+// var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+
+function timelineAjax(event) {
+    if (event == "win") {
+        $.ajax({
+            type: "put",
+            url: "http://localhost:5000/timeline/insert",
+            data: {
+                "text": `You have Won PokeGame!!`,
+                "hits": 1,
+                "time": now
+            },
+            success: (res) => {
+                console.log(res)
+            }
+        })
+    } else {
+        $.ajax({
+            type: "put",
+            url: "http://localhost:5000/timeline/insert",
+            data: {
+                "text": `You Lost Won PokeGame.......`,
+                "hits": 1,
+                "time": now
+            },
+            success: (res) => {
+                console.log(res)
+            }
+        })
+    }
+}
+
 
 function startTimer(timeLimit) {
 
-    switch(timeLimit){
-        case 4: time_limit_ = 3;
-        break;
+    switch (timeLimit) {
+        case 4:
+            time_limit_ = 3;
+            break;
 
-        case 8: time_limit_ = 6;
-        break;
+        case 8:
+            time_limit_ = 6;
+            break;
 
-        case 16: time_limit_ = 10;
-        break;
+        case 16:
+            time_limit_ = 10;
+            break;
     }
 
-    timerInterval = setInterval(() => {
-
+    // timerInterval = 
+    
+    timePassed = 0
+    setInterval(() => {
         timePassed = timePassed += 1;
         timeLeft = time_limit_ - timePassed;
 
-        if (timeLeft >= 0){
+        if (timeLeft >= 0) {
             $("#clock").html(`<span id="clock" style="width: 200px; height: 200px; font-size: 30px;">         ${formatTime(timeLeft)}        </span>     `)
-        }
-        else {
+        } else {
+            timelineAjax("lose")
             $("#game_grid").html("GAME OVER. REFRESH PAGE")
         }
     }, 1000)
@@ -96,11 +202,19 @@ function changeTime() {
     startTimer(timeLimit);
 }
 
-function changeDims(){
+function changeDims() {
     dimension = $(this).val();
     newDims = 100 / Number(dimension)
     $(".card").css("width", `calc(${newDims}% - 10px)`)
 }
+
+function setUpMatchTotal() {
+    totalCards = $(this).val();
+    matchTotal = Number(totalCards) / 2;
+}
+
+
+
 
 
 function setup() {
@@ -111,6 +225,7 @@ function setup() {
     $("#level_").change(changeTime);
     $("#grid_size_").change(changeDims);
     $("#card_num_").change(populateCards);
+    $("#card_num_").change(setUpMatchTotal);
 
 
     $("body").on("click", ".card", function () {
@@ -138,6 +253,15 @@ function setup() {
                 // disable clicking events on these cards
                 $(firstCard).parent().off("click")
                 $(secondCard).parent().off("click")
+
+                matchCount++
+                console.log(matchCount)
+                console.log("tot" + matchTotal)
+                if (matchCount == matchTotal) {
+                    timelineAjax("win")
+                    console.log("match all done") // winning log
+                }
+
             } else {
                 console.log("not a match");
                 // unflipping
