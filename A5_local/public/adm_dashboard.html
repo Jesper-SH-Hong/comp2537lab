@@ -48,14 +48,44 @@
     <br>
     <br>
     <center>
-            Hello Admin, Welcome to Dashboard
+        Hello Admin, Welcome to Dashboard
 
         <div id="dashboard">
 
 
 
         </div>
+
+        <br>
+        <br>
+        <br>
+
+        <button id="showAddUserButton" i> Add user </button>
+        <br>
+        <br>
+        <div id='addUser' style="width: 50%; border: 3px solid black;">
+            <form action="/register" method="POST">
+                ID:
+                <input id="user_id" name="user_id" type="text" placeholder="ID">
+                <br>
+                <br>
+                PW:
+                <input id="password" name="password" type="password" placeholder="Password">
+                <br>
+                <br>
+                Role:
+                <select name="role" id="role">
+                    <!-- <option value="_">Select Role</option> -->
+                    <option value="admin">admin</option>
+                    <option value="user">user</option>
+                </select>
+                <br>
+                <br>
+                <input <button type="submit" value="Register"></button>
+            </form>
     </center>
+
+    </div>
     <footer>
         <center>
             <h4>
